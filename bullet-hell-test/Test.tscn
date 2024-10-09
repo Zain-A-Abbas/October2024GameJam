@@ -1,0 +1,24 @@
+[gd_scene load_steps=6 format=3 uid="uid://cg0oung6xf3yg"]
+
+[ext_resource type="Script" path="res://test.gd" id="1_8l0wi"]
+[ext_resource type="Texture2D" uid="uid://dacsx16nv7i34" path="res://icon.svg" id="1_van5f"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6p43d"]
+transparency = 1
+albedo_texture = ExtResource("1_van5f")
+
+[sub_resource type="QuadMesh" id="QuadMesh_fsnlm"]
+lightmap_size_hint = Vector2i(52, 52)
+material = SubResource("StandardMaterial3D_6p43d")
+size = Vector2(50, 50)
+
+[sub_resource type="MultiMesh" id="MultiMesh_6voj7"]
+use_colors = true
+mesh = SubResource("QuadMesh_fsnlm")
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_8l0wi")
+
+[node name="MultiMeshInstance2D" type="MultiMeshInstance2D" parent="."]
+multimesh = SubResource("MultiMesh_6voj7")
+texture = ExtResource("1_van5f")
