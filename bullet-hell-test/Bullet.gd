@@ -23,10 +23,16 @@ static func initializeBullets(_multiMesh: MultiMeshInstance2D):
 	for i in BULLET_COUNT:
 		bullets.append(Bullet.new())
 
+static func cleanupBullets():
+	assert(!bullets.is_empty())
+	for bullet in bullets:
+		bullet.deactivate()
+
 static func getBullet() -> Bullet:
 	assert(!inactiveBullets.is_empty())
 	activeBulletCount += 1
 	return inactiveBullets.pop_back()
+
 
 static func processBullets(delta: float):
 	for i in bullets.size():
