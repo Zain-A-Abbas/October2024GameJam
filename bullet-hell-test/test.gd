@@ -7,10 +7,10 @@ var bullets: Array[Bullet] = []
 func _ready() -> void:
 	await get_tree().create_timer(0.5).timeout
 	Bullet.initializeBullets(multi_mesh_instance_2d)
-	var bulletTestCount: int = 8
-	for i in bulletTestCount:
+	for i in Bullet.BULLET_COUNT:
 		var bullet: Bullet = Bullet.getBullet()
-		bullet.activate(Vector2(600, 360), Vector2(randi_range(-200, 200), randi_range(-150, 150)))
+		var bulletVelocity: Vector2 = Vector2(randi_range(-100, 100), 0).rotated(deg_to_rad(randf_range(0, 360)))
+		bullet.activate(Vector2(600, 360), bulletVelocity)
 	
 
 func _physics_process(delta: float) -> void:

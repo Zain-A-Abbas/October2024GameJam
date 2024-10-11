@@ -1,0 +1,8 @@
+Player character
+- A node2d
+- Basic state machine
+	- None
+	- Spawning in
+	- Control
+	- Hard control
+- 

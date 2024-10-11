@@ -1,7 +1,7 @@
 extends Object
 class_name Bullet
 
-const BULLET_COUNT: int = 1000
+const BULLET_COUNT: int = 2000
 
 var position: Vector2
 var velocity: Vector2
@@ -21,7 +21,9 @@ static func initializeBullets(_multiMesh: MultiMeshInstance2D):
 	multiMesh = _multiMesh
 	multiMesh.multimesh.instance_count = BULLET_COUNT
 	for i in BULLET_COUNT:
-		bullets.append(Bullet.new())
+		var newBullet: Bullet = Bullet.new()
+		newBullet.rotationSpeed = 2 * PI * randf_range(0.05, 1.5)
+		bullets.append(newBullet)
 
 static func cleanupBullets():
 	assert(!bullets.is_empty())
@@ -33,6 +35,8 @@ static func getBullet() -> Bullet:
 	activeBulletCount += 1
 	return inactiveBullets.pop_back()
 
+var rotation: float = 0.0
+var rotationSpeed: float = 1.0
 
 static func processBullets(delta: float):
 	for i in bullets.size():
@@ -40,6 +44,9 @@ static func processBullets(delta: float):
 			bullets[i].move(delta)
 			var bulletTransform: Transform2D = Transform2D.IDENTITY
 			bulletTransform.origin = bullets[i].position
+			bulletTransform = bulletTransform.rotated_local(bullets[i].rotation)
+			bullets[i].rotation += bullets[i].rotationSpeed * delta
+			
 			if bullets[i].outOfBounds():
 				bullets[i].deactivate()
 			multiMesh.multimesh.set_instance_color(i, Color.WHITE)
