@@ -1,9 +1,32 @@
-[gd_scene load_steps=2 format=3 uid="uid://blmr0i0me6khu"]
+[gd_scene load_steps=5 format=3 uid="uid://blmr0i0me6khu"]
 
 [ext_resource type="Texture2D" uid="uid://dacsx16nv7i34" path="res://icon.svg" id="1_2j1io"]
+[ext_resource type="Script" path="res://Player.gd" id="1_17h8l"]
 
-[node name="Player" type="Node2D"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_s4y67"]
+radius = 32.0156
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fonj2"]
+radius = 16.0
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("1_17h8l")
+metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_2j1io")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_s4y67")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 4
+input_pickable = false
+priority = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_fonj2")
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

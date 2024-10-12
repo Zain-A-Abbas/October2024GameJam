@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BulletData" load_steps=4 format=3 uid="uid://bnspvihouxbvp"]
+
+[ext_resource type="Script" path="res://BulletResource.gd" id="1_03w6t"]
+[ext_resource type="Texture2D" uid="uid://c47hytm1k77n0" path="res://Bullet Sprites/0.png" id="2_1aw75"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_e3888"]
+radius = 8.0
+height = 32.0
+
+[resource]
+script = ExtResource("1_03w6t")
+sprite = ExtResource("2_1aw75")
+speed = 1.0
+hue = 0.5
+bullet_collision = SubResource("CapsuleShape2D_e3888")

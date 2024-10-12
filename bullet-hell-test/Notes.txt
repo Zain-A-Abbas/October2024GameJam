@@ -5,4 +5,21 @@ Player character
 	- Spawning in
 	- Control
 	- Hard control
+
+
+Bullet
+- Node2d
+	- Collision shape circle
+	- Node that checks if off screen
+- Create 400 at start of game
+- "Bullet set" function
+	- Sets sprite, can set rotation, rotation delta, speed, etc.
+- "Spawn bullet"
+	- Gets a random bullet out of bullet pool, assigns it sprite and speed (and default rotation if none provided)
+
+
+Enemy
+- HP
+- Node2d
+	- Sprite2d
 - 

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://0pr6ky5moqnk"]
+
+[ext_resource type="PackedScene" uid="uid://b6h3ij4gp4wdj" path="res://GameArea.tscn" id="1_ya7on"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_7mgbb"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Game" type="Node2D"]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(720, 840)
+
+[node name="Node2D" parent="SubViewport" instance=ExtResource("1_ya7on")]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(64, 30)
+texture = SubResource("ViewportTexture_7mgbb")
+centered = false
+metadata/_edit_lock_ = true

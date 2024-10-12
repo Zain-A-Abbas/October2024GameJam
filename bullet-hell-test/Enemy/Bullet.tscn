@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://bcarguecblqmx"]
+
+[ext_resource type="Texture2D" uid="uid://be5qtgti7gba4" path="res://Bullet Sprites/1.png" id="1_1utxf"]
+[ext_resource type="Script" path="res://Enemy/Bullet.gd" id="2_vmnje"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sipoy"]
+radius = 8.0
+height = 32.0
+
+[node name="Sprite2D" type="Sprite2D"]
+modulate = Color(1, 0, 0, 1)
+texture_filter = 1
+texture = ExtResource("1_1utxf")
+script = ExtResource("2_vmnje")
+metadata/_edit_group_ = true
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+
+[node name="StaticBody2D" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 0
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+shape = SubResource("CapsuleShape2D_sipoy")
+
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]
