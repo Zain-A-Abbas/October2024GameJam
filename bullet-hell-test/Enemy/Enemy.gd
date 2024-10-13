@@ -25,6 +25,11 @@ func _ready() -> void:
 	).from(0.0)
 
 func initialize(spawn_position: Vector2, _bullet_manager: BulletManager, _player: Player, args: Dictionary = {}):
+	if !args.has("boss"):
+		if Game.run_seconds >= 90:
+			hp *= 3
+		elif Game.run_seconds >= 30:
+			hp *= 2
 	position = spawn_position
 	bullet_manager = _bullet_manager
 	player = _player

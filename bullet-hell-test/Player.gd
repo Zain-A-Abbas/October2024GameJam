@@ -80,7 +80,10 @@ func gain_points(points: int):
 	Game.points += points
 	bomb_tracker += points
 	level_tracker += points
-	if level_tracker >= 100 && level < 3:
+	if level_tracker >= 250 && level == 2:
+		level_tracker -= 250
+		level += 1
+	elif level_tracker >= 100 && level == 1:
 		level_tracker -= 100
 		level += 1
 	if bomb_tracker >= 50 && Game.bombs < 3:

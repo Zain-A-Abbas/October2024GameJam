@@ -20,7 +20,7 @@ func _ready() -> void:
 func bomb():
 	impact_frame.material.set_shader_parameter("impact", true)
 	process_mode = PROCESS_MODE_DISABLED
-	await Util.timer(0.2)
+	await Util.timer(0.1)
 	impact_frame.material.set_shader_parameter("impact", false)
 	process_mode = PROCESS_MODE_INHERIT
 	screen_shake.begin_trauma(20, 40)

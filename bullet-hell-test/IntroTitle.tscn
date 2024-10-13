@@ -1,0 +1,130 @@
+[gd_scene load_steps=7 format=3 uid="uid://ddaf2v8yqq7js"]
+
+[ext_resource type="FontFile" uid="uid://dpgkdne53okab" path="res://UI/Fonts/cambria.ttc" id="1_fcthq"]
+[ext_resource type="Script" path="res://IntroTitle.gd" id="1_ifrx8"]
+[ext_resource type="Texture2D" uid="uid://bveumi8upeusa" path="res://UI/Inputs/keyboard_z.png" id="2_lgbw0"]
+[ext_resource type="FontFile" uid="uid://buuk2nfstr30k" path="res://UI/Fonts/NanumGothicCoding-Bold.ttf" id="3_7riby"]
+[ext_resource type="Texture2D" uid="uid://8jy0sp07dq1s" path="res://Other Textures/Title background.png" id="5_84sjc"]
+[ext_resource type="Texture2D" uid="uid://cqx2wy7pu4o36" path="res://Other Textures/Logo.png" id="6_06hw3"]
+
+[node name="Title" type="Node2D"]
+script = ExtResource("1_ifrx8")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+texture_filter = 1
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true
+
+[node name="IntroNodes" type="Control" parent="CanvasLayer/Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="IntroText" type="Label" parent="CanvasLayer/Control/IntroNodes"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_fcthq")
+theme_override_font_sizes/font_size = 32
+text = "In the Ancient of Days..."
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="CenterContainer" type="CenterContainer" parent="CanvasLayer/Control/IntroNodes"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.9
+anchor_right = 1.0
+anchor_bottom = 0.9
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/IntroNodes/CenterContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/IntroNodes/CenterContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_lgbw0")
+
+[node name="SkipLabel" type="Label" parent="CanvasLayer/Control/IntroNodes/CenterContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("3_7riby")
+theme_override_font_sizes/font_size = 24
+text = "- Skip Intro"
+
+[node name="TitleNodes" type="Control" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TitleBG" type="TextureRect" parent="CanvasLayer/Control/TitleNodes"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("5_84sjc")
+
+[node name="Logo" type="TextureRect" parent="CanvasLayer/Control/TitleNodes"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.4
+anchor_top = 0.1
+anchor_right = 0.6
+anchor_bottom = 0.1
+grow_horizontal = 2
+texture = ExtResource("6_06hw3")
+
+[node name="TitleOptions" type="VBoxContainer" parent="CanvasLayer/Control/TitleNodes"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.25
+anchor_top = 0.55
+anchor_right = 0.7
+anchor_bottom = 0.85
+
+[node name="StartLabel" type="Label" parent="CanvasLayer/Control/TitleNodes/TitleOptions"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.6432, 0.86496, 0.96, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("3_7riby")
+theme_override_font_sizes/font_size = 116
+text = "START GAME"
+
+[node name="ExitLabel" type="Label" parent="CanvasLayer/Control/TitleNodes/TitleOptions"]
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_colors/font_color = Color(0.96, 0.6432, 0.6432, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("3_7riby")
+theme_override_font_sizes/font_size = 116
+text = "EXIT"

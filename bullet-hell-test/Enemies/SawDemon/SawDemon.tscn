@@ -16,6 +16,7 @@ radius = 32.0
 
 [node name="Enemy" instance=ExtResource("1_nnnwq")]
 script = ExtResource("2_t7sw2")
+hp = 18
 
 [node name="EnemySprite" parent="." index="0"]
 material = SubResource("ShaderMaterial_y0dog")

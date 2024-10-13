@@ -5,12 +5,10 @@ extends CanvasLayer
 @onready var level_label: Label = $PanelContainer/VBoxContainer/PanelContainer4/HBoxContainer/LevelLabel
 
 func _physics_process(delta: float) -> void:
-	time_text()
 	score_label.text = str(Game.points)
 	level_label.text = str(Game.player.level)
 
-func time_text():
-	var ms: int = Time.get_ticks_msec()
+func time_text(ms: int):
 	var minutes: int = ms / 60000
 	var seconds: int = (ms / 1000) % 60
 	var milliseconds: int = ms % 1000

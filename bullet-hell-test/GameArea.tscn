@@ -1,4 +1,4 @@
-[gd_scene load_steps=130 format=3 uid="uid://b6h3ij4gp4wdj"]
+[gd_scene load_steps=132 format=3 uid="uid://b6h3ij4gp4wdj"]
 
 [ext_resource type="Shader" path="res://ImpactShader.gdshader" id="1_5ahoo"]
 [ext_resource type="Script" path="res://GameArea.gd" id="1_ks06v"]
@@ -8,19 +8,23 @@
 [ext_resource type="Texture2D" uid="uid://byhjqyjkpho0v" path="res://Other Textures/BabelBG.png" id="3_6cvsc"]
 [ext_resource type="Shader" path="res://Other Textures/Tower.gdshader" id="3_018yw"]
 [ext_resource type="Script" path="res://Enemy/BulletManager.gd" id="3_w4m8o"]
+[ext_resource type="PackedScene" uid="uid://be5rubao3et1m" path="res://PillarEnvironment.tscn" id="6_563cn"]
 [ext_resource type="Texture2D" uid="uid://cpst0o60oandi" path="res://Other Textures/EnemyDeath.png" id="7_g1eje"]
 [ext_resource type="Texture2D" uid="uid://bh20vgkilabwa" path="res://Other Textures/EnemySpawn.png" id="8_iar7s"]
 [ext_resource type="Script" path="res://2dTraumaComponent.gd" id="11_vjt44"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t61l8"]
 shader = ExtResource("3_018yw")
-shader_parameter/scroll_speed = Vector2(0, -0.002)
+shader_parameter/scroll_speed = Vector2(0, -0.02)
 shader_parameter/alpha = 1.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6ihye"]
 shader = ExtResource("3_018yw")
 shader_parameter/scroll_speed = Vector2(0, -0.03)
 shader_parameter/alpha = 0.51
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3qc18"]
+viewport_path = NodePath("BackgroundViewport/SubViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_wx6e8"]
 viewport_path = NodePath("BackgroundViewport")
@@ -847,9 +851,20 @@ texture = ExtResource("2_0wwr0")
 centered = false
 
 [node name="Sprite2D2" type="Sprite2D" parent="BackgroundViewport"]
+visible = false
 material = SubResource("ShaderMaterial_6ihye")
 texture = ExtResource("3_6cvsc")
 centered = false
+
+[node name="Sprite2D3" type="Sprite2D" parent="BackgroundViewport"]
+texture = SubResource("ViewportTexture_3qc18")
+centered = false
+
+[node name="SubViewport" type="SubViewport" parent="BackgroundViewport"]
+transparent_bg = true
+size = Vector2i(720, 840)
+
+[node name="PillarEnvironment" parent="BackgroundViewport/SubViewport" instance=ExtResource("6_563cn")]
 
 [node name="Background" type="Sprite2D" parent="."]
 texture = SubResource("ViewportTexture_wx6e8")

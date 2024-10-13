@@ -18,8 +18,6 @@ func enemy_process(delta: float):
 				var angle_to_player: float = position.angle_to_point(player.position)
 				for angle in BULLET_ANGLE_OFFSETS:
 					bullet_manager.spawn_bullet(position, SAW_BULLET, {"rotation": angle_to_player + deg_to_rad(angle)})
-#				bullet_manager.spawn_bullet(position, HAMMER_BULLET, {"rotation": position.angle_to_point(player.position)})
 			position.x = start_pos.x + sin(pos_tracker) * MOVE_RANGE.x * flip_x
 			position.y = start_pos.y + sin(2 * pos_tracker) * MOVE_RANGE.y
 			pos_tracker += delta * 0.64*2
-			
