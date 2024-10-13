@@ -8,7 +8,8 @@ class_name Bullet
 var player: bool = false
 var active: bool = false
 var speed: float = 10
-var bulletRotation: float = 0.0
+var bullet_rotation: float = 0.0
+var sprite_rotation: float = 0.0
 
 func initialize(player_bullet: bool = false):
 	player = player_bullet
@@ -37,12 +38,15 @@ func setup_bullet(bullet_resource: BulletData, args: Dictionary = {}):
 	collision_shape_2d.shape = bullet_resource.bullet_collision
 	speed = bullet_resource.speed * 800
 	if args.has("rotation"):
-		bulletRotation = args["rotation"] - PI/2
-		rotation = bulletRotation
+		bullet_rotation = args["rotation"] - PI/2
+		rotation = bullet_rotation
+	sprite_rotation = bullet_resource.sprite_rotation
 
 func _physics_process(delta: float) -> void:
 	if active:
-		position += Vector2(0, speed).rotated(bulletRotation) * delta
+		position += Vector2(0, speed).rotated(bullet_rotation) * delta
+		if sprite_rotation:
+			rotation += sprite_rotation * delta
 
 func _on_visible_on_screen_notifier_2d_screen_exited() -> void:
 	if !visible_on_screen_notifier_2d.is_on_screen():

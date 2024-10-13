@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="BulletData" load_steps=4 format=3 uid="uid://cua0a2xml68wf"]
+
+[ext_resource type="Script" path="res://BulletResource.gd" id="1_th3as"]
+[ext_resource type="Texture2D" uid="uid://dp27piyfjsw8n" path="res://Bullet Sprites/Nail.png" id="2_vrmkb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_1cj4p"]
+radius = 6.0
+height = 20.0
+
+[resource]
+script = ExtResource("1_th3as")
+sprite = ExtResource("2_vrmkb")
+speed = 0.5
+hue = 0.0
+sprite_rotation = 0.0
+bullet_collision = SubResource("CapsuleShape2D_1cj4p")

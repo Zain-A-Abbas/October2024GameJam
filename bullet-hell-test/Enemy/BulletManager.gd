@@ -23,3 +23,9 @@ func spawn_bullet(bulletPosition: Vector2, bulletData: BulletData, args: Diction
 	var bullet: Bullet = get_bullet()
 	bullet.setup_bullet(bulletData, args)
 	bullet.activate(bulletPosition)
+
+func clear_bullets():
+	for child in get_children():
+		if is_instance_of(child, Bullet):
+			if child.active:
+				child.deactivate()

@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=3 uid="uid://dh25b55hv736f"]
+
+[ext_resource type="PackedScene" uid="uid://cj3v1wmjdjs6p" path="res://Enemy/Enemy.tscn" id="1_dakir"]
+[ext_resource type="Script" path="res://Enemies/Demon/hammer_demon.gd" id="2_yerjt"]
+[ext_resource type="Shader" path="res://Enemy/EnemyShader.gdshader" id="3_452bk"]
+[ext_resource type="Texture2D" uid="uid://keon6x7l7uqb" path="res://Enemies/Demon/DemonASprite.png" id="4_8rp7s"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rjbyc"]
+resource_local_to_scene = true
+shader = ExtResource("3_452bk")
+shader_parameter/hurt = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_enlrk"]
+resource_local_to_scene = true
+radius = 32.0
+
+[node name="Enemy" instance=ExtResource("1_dakir")]
+script = ExtResource("2_yerjt")
+hp = 5
+metadata/_edit_group_ = true
+
+[node name="EnemySprite" parent="." index="0"]
+material = SubResource("ShaderMaterial_rjbyc")
+texture = ExtResource("4_8rp7s")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CircleShape2D_enlrk")

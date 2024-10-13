@@ -1,8 +1,31 @@
-[gd_scene load_steps=2 format=3 uid="uid://cj3v1wmjdjs6p"]
+[gd_scene load_steps=6 format=3 uid="uid://cj3v1wmjdjs6p"]
 
 [ext_resource type="Script" path="res://Enemy/Enemy.gd" id="1_hvkl3"]
+[ext_resource type="Shader" path="res://Enemy/EnemyShader.gdshader" id="2_4dexe"]
+[ext_resource type="Texture2D" uid="uid://be3jw6kacuftq" path="res://Enemies/Demon/DemonSprite.png" id="3_wch8a"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rx1jr"]
+resource_local_to_scene = true
+shader = ExtResource("2_4dexe")
+shader_parameter/hurt = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_is145"]
+resource_local_to_scene = true
+radius = 32.0
 
 [node name="Enemy" type="Node2D"]
 script = ExtResource("1_hvkl3")
 
 [node name="EnemySprite" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_rx1jr")
+texture = ExtResource("3_wch8a")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+shape = SubResource("CircleShape2D_is145")
+
+[connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]

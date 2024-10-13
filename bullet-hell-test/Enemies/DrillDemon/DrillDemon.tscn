@@ -1,0 +1,25 @@
+[gd_scene load_steps=7 format=3 uid="uid://b6jnt8j8niher"]
+
+[ext_resource type="PackedScene" uid="uid://cj3v1wmjdjs6p" path="res://Enemy/Enemy.tscn" id="1_vqd2k"]
+[ext_resource type="Script" path="res://Enemies/DrillDemon/drill_demon.gd" id="2_ny6pf"]
+[ext_resource type="Shader" path="res://Enemy/EnemyShader.gdshader" id="3_cphrs"]
+[ext_resource type="Texture2D" uid="uid://b83xvugr7rtmr" path="res://Enemies/DrillDemon/Drill Demon.png" id="4_ugb6c"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_41a0e"]
+resource_local_to_scene = true
+shader = ExtResource("3_cphrs")
+shader_parameter/hurt = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_m3bex"]
+resource_local_to_scene = true
+radius = 32.0
+
+[node name="DrillDemon" instance=ExtResource("1_vqd2k")]
+script = ExtResource("2_ny6pf")
+
+[node name="EnemySprite" parent="." index="0"]
+material = SubResource("ShaderMaterial_41a0e")
+texture = ExtResource("4_ugb6c")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CircleShape2D_m3bex")

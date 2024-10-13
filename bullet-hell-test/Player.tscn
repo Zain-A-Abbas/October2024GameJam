@@ -1,26 +1,37 @@
-[gd_scene load_steps=5 format=3 uid="uid://blmr0i0me6khu"]
+[gd_scene load_steps=8 format=3 uid="uid://blmr0i0me6khu"]
 
-[ext_resource type="Texture2D" uid="uid://dacsx16nv7i34" path="res://icon.svg" id="1_2j1io"]
 [ext_resource type="Script" path="res://Player.gd" id="1_17h8l"]
+[ext_resource type="Texture2D" uid="uid://qqyxdvrjxhv8" path="res://Player/Player Sprite.png" id="2_3a4yi"]
+[ext_resource type="Texture2D" uid="uid://ej2wx4ni2mk0" path="res://Player/PlayerHurtboxSprite.png" id="3_kgk22"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_s4y67"]
 radius = 32.0156
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_fonj2"]
-radius = 16.0
+radius = 6.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_y060j"]
+radius = 96.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ebycp"]
+radius = 8.0
 
 [node name="Player" type="CharacterBody2D"]
 script = ExtResource("1_17h8l")
 metadata/_edit_group_ = true
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("1_2j1io")
+[node name="PlayerSprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_3a4yi")
+
+[node name="HitboxSprite" type="Sprite2D" parent="."]
+texture = ExtResource("3_kgk22")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 shape = SubResource("CircleShape2D_s4y67")
 
 [node name="Hurtbox" type="Area2D" parent="."]
+visible = false
 collision_layer = 0
 collision_mask = 4
 input_pickable = false
@@ -29,4 +40,26 @@ priority = 1
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
 shape = SubResource("CircleShape2D_fonj2")
 
+[node name="PointAttractor" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 8
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PointAttractor"]
+shape = SubResource("CircleShape2D_y060j")
+debug_color = Color(0.7, 0.571667, 0, 0.419608)
+
+[node name="PointPickup" type="Area2D" parent="."]
+visible = false
+collision_layer = 0
+collision_mask = 16
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PointPickup"]
+shape = SubResource("CircleShape2D_ebycp")
+debug_color = Color(0.7, 0.7, 0, 0.419608)
+
 [connection signal="area_entered" from="Hurtbox" to="." method="_on_hurtbox_area_entered"]
+[connection signal="area_entered" from="PointAttractor" to="." method="_on_point_attractor_area_entered"]
+[connection signal="area_entered" from="PointPickup" to="." method="_on_point_pickup_area_entered"]

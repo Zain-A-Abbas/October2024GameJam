@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="BulletData" load_steps=4 format=3 uid="uid://1ar5lmghl3km"]
+
+[ext_resource type="Script" path="res://BulletResource.gd" id="1_mqhsc"]
+[ext_resource type="Texture2D" uid="uid://dmqybvgnj3477" path="res://Bullet Sprites/Saw.png" id="2_bfe1t"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_se4mw"]
+height = 20.0
+
+[resource]
+script = ExtResource("1_mqhsc")
+sprite = ExtResource("2_bfe1t")
+speed = 0.25
+hue = 0.0
+sprite_rotation = 6.284
+bullet_collision = SubResource("CapsuleShape2D_se4mw")

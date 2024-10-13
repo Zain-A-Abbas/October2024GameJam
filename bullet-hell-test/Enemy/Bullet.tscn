@@ -1,16 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://bcarguecblqmx"]
 
-[ext_resource type="Texture2D" uid="uid://be5qtgti7gba4" path="res://Bullet Sprites/1.png" id="1_1utxf"]
+[ext_resource type="Texture2D" uid="uid://dp27piyfjsw8n" path="res://Bullet Sprites/Nail.png" id="1_jl3er"]
 [ext_resource type="Script" path="res://Enemy/Bullet.gd" id="2_vmnje"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_sipoy"]
-radius = 8.0
-height = 32.0
+radius = 6.0
+height = 20.0
 
 [node name="Sprite2D" type="Sprite2D"]
-modulate = Color(1, 0, 0, 1)
 texture_filter = 1
-texture = ExtResource("1_1utxf")
+texture = ExtResource("1_jl3er")
 script = ExtResource("2_vmnje")
 metadata/_edit_group_ = true
 

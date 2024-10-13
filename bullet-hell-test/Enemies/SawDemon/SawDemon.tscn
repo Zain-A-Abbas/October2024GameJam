@@ -1,0 +1,25 @@
+[gd_scene load_steps=7 format=3 uid="uid://cor40n2gne3wu"]
+
+[ext_resource type="PackedScene" uid="uid://cj3v1wmjdjs6p" path="res://Enemy/Enemy.tscn" id="1_nnnwq"]
+[ext_resource type="Shader" path="res://Enemy/EnemyShader.gdshader" id="2_ig0a0"]
+[ext_resource type="Script" path="res://Enemies/SawDemon/saw_demon.gd" id="2_t7sw2"]
+[ext_resource type="Texture2D" uid="uid://bywyfwglu5imv" path="res://Enemies/SawDemon/SawDemon.png" id="3_v8p28"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_y0dog"]
+resource_local_to_scene = true
+shader = ExtResource("2_ig0a0")
+shader_parameter/hurt = 0.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_25yao"]
+resource_local_to_scene = true
+radius = 32.0
+
+[node name="Enemy" instance=ExtResource("1_nnnwq")]
+script = ExtResource("2_t7sw2")
+
+[node name="EnemySprite" parent="." index="0"]
+material = SubResource("ShaderMaterial_y0dog")
+texture = ExtResource("3_v8p28")
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CircleShape2D_25yao")
