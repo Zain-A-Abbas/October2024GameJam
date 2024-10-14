@@ -37,6 +37,8 @@ func _ready() -> void:
 	intro()
 
 func intro():
+	BGM.load_bgm("Title")
+	BGM.play_bgm()
 	await Util.timer(0.1)
 	if skip_on_gameover || Input.is_action_pressed("bomb"):
 		pass
@@ -80,6 +82,8 @@ func intro():
 	title_tween = create_tween().set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_EXPO).set_parallel(true)
 	title_tween.tween_property(logo, "modulate:a", 1.0, 0.7)
 	title_tween.tween_property(logo, "scale", Vector2.ONE, 0.7).from(Vector2(1.3, 1.3))
+	await Util.timer(0.1)
+	SE.sound_effect("Title")
 	await title_tween.finished
 	
 	await Util.timer(0.1)
@@ -111,7 +115,9 @@ func _physics_process(delta: float) -> void:
 			highlight(selected_option)
 		
 		if Input.is_action_just_pressed("shoot"):
+			SE.ui_confirm()
 			if selected_option == 0:
+				BGM.fadeout_bgm()
 				state == "None"
 				var fade_tween: Tween = create_tween()
 				fade_tween.tween_property(control, "modulate:v", 0.0, 1.0)
@@ -122,6 +128,7 @@ func _physics_process(delta: float) -> void:
 				get_tree().quit()
 
 func highlight(index: int):
+	SE.ui_scroll()
 	var nodes: Array[Control] = [start_label, exit_label]
 	for i in nodes.size():
 		if i != index:

@@ -42,6 +42,7 @@ func _physics_process(delta: float) -> void:
 func input(delta: float):
 	if Input.is_action_just_pressed("bomb") && Game.bombs > 0:
 		Game.bombs -= 1
+		SE.sound_effect("Bomb")
 		game_area.bomb()
 		return
 	
@@ -78,6 +79,7 @@ func shoot_position() -> Vector2:
 	return self.position + Vector2(0, -10)
 
 func player_hit():
+	SE.sound_effect("Death")
 	self.self_modulate.a = 0
 	player_sprite.self_modulate.a = 0
 	hitbox_sprite.self_modulate.a = 0
@@ -123,7 +125,7 @@ func gain_points(points: int):
 	elif level_tracker >= 100 && level == 1:
 		level_tracker = 0
 		level += 1
-	if bomb_tracker >= 100 && Game.bombs < 3:
+	if bomb_tracker >= 150 && Game.bombs < 3:
 		bomb_tracker = 0
 		Game.gain_bomb()
 	if life_tracker >= 150 && Game.life < 3:

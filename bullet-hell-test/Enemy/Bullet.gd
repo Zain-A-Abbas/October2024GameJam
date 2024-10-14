@@ -37,11 +37,14 @@ func setup_bullet(bullet_resource: BulletData, args: Dictionary = {}):
 	modulate.h = bullet_resource.hue
 	collision_shape_2d.shape = bullet_resource.bullet_collision
 	speed = bullet_resource.speed * 800
+	scale = Vector2.ONE
 	if args.has("rotation"):
 		bullet_rotation = args["rotation"] - PI/2
 		rotation = bullet_rotation
 	if args.has("speed_mod"):
 		speed *= args["speed_mod"]
+	if args.has("size_mod"):
+		scale *= args["size_mod"]
 	sprite_rotation = bullet_resource.sprite_rotation
 
 func _physics_process(delta: float) -> void:

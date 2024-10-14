@@ -3,6 +3,9 @@ extends Node2D
 const GAME_SIZE: Vector2 = Vector2(720, 840)
 const POINT_REWARD = preload("res://PointReward.tscn")
 
+@onready var pillar_mesh: MeshInstance3D = $BackgroundViewport/SubViewport/PillarEnvironment/PillarMesh
+@onready var boss_bar: ProgressBar = $BossHP/BossBar
+@onready var boss_hp: Control = $BossHP
 @onready var level_flow: Node = $LevelFlow
 @onready var enemies: Node = $Enemies
 @onready var player: Player = $Player
@@ -12,11 +15,29 @@ const POINT_REWARD = preload("res://PointReward.tscn")
 @onready var impact_frame: Sprite2D = $ImpactFrame
 @onready var screen_shake: TraumaComponent = $ScreenShake
 
+func _ready() -> void:
+	boss_hp.visible = false
+
 func initialize():
 	EventBus.enemy_killed.connect(enemy_death)
 	player.controllable = true
 	await Util.timer(1.0)
 	level_flow.level()
+
+func spawn_boss(boss: Enemy):
+	Game.life = 3
+	pillar_mesh.mesh.surface_get_material(0).set_shader_parameter("pillar_speed", 2.0)
+	boss_hp.modulate.a = 0.0
+	boss_hp.visible = true
+	boss_bar.value = 0.0
+	boss_bar.max_value = boss.hp
+	var bar_tween: Tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	bar_tween.tween_property(boss_hp, "modulate:a", 1.0, 0.7)
+	await bar_tween.finished
+	bar_tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
+	bar_tween.tween_property(boss_bar, "value", boss.hp, 2).from(0)
+	await bar_tween.finished
+	boss.hp_update.connect(boss_bar.set_value)
 
 func bomb():
 	impact_frame.material.set_shader_parameter("impact", true)
@@ -31,10 +52,13 @@ func bomb():
 			enemy.enemy_hurt(25 + 75 * int(!enemy.boss), true)
 
 func spawn_enemy(enemy: PackedScene, spawn_position: Vector2, args: Dictionary = {}):
+	SE.sound_effect("EnemySpawn")
 	var new_enemy: Enemy = enemy.instantiate()
 	enemies.add_child(new_enemy)
 	new_enemy.initialize(spawn_position, enemy_bullets, player, args)
 	enemy_spawn_anim(spawn_position)
+	if new_enemy.name == "Lucifer":
+		spawn_boss(new_enemy)
 
 func enemy_death(enemy_position: Vector2):
 	level_flow.enemy_death()

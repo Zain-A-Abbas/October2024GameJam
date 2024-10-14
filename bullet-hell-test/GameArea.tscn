@@ -1,4 +1,4 @@
-[gd_scene load_steps=130 format=3 uid="uid://b6h3ij4gp4wdj"]
+[gd_scene load_steps=133 format=3 uid="uid://b6h3ij4gp4wdj"]
 
 [ext_resource type="Shader" path="res://ImpactShader.gdshader" id="1_5ahoo"]
 [ext_resource type="Script" path="res://GameArea.gd" id="1_ks06v"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://be5rubao3et1m" path="res://PillarEnvironment.tscn" id="6_563cn"]
 [ext_resource type="Texture2D" uid="uid://cpst0o60oandi" path="res://Other Textures/EnemyDeath.png" id="7_g1eje"]
 [ext_resource type="Texture2D" uid="uid://bh20vgkilabwa" path="res://Other Textures/EnemySpawn.png" id="8_iar7s"]
+[ext_resource type="FontFile" uid="uid://buuk2nfstr30k" path="res://UI/Fonts/NanumGothicCoding-Bold.ttf" id="11_praht"]
 [ext_resource type="Script" path="res://2dTraumaComponent.gd" id="11_vjt44"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t61l8"]
@@ -819,6 +820,15 @@ shader_parameter/impact = false
 [sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_txa1w"]
 size = Vector2(720, 840)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dulcm"]
+bg_color = Color(0.2, 0.137255, 0.0352941, 1)
+shadow_color = Color(0.2, 0.137133, 0.036, 1)
+shadow_size = 1
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lw3l7"]
+bg_color = Color(0.79, 0.611328, 0.3239, 1)
+
 [node name="GameArea" type="Node2D"]
 position = Vector2(-1, 0)
 script = ExtResource("1_ks06v")
@@ -923,5 +933,37 @@ position = Vector2(360, 420)
 texture = SubResource("PlaceholderTexture2D_txa1w")
 metadata/_edit_lock_ = true
 
+[node name="BossHP" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 3.0
+offset_right = 721.0
+offset_bottom = 61.0
+
+[node name="BossBar" type="ProgressBar" parent="BossHP"]
+layout_mode = 0
+offset_left = 7.0
+offset_top = 25.0
+offset_right = 713.0
+offset_bottom = 36.0
+theme_override_styles/background = SubResource("StyleBoxFlat_dulcm")
+theme_override_styles/fill = SubResource("StyleBoxFlat_lw3l7")
+show_percentage = false
+
+[node name="Label" type="Label" parent="BossHP"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 6.0
+offset_right = 88.0
+offset_bottom = 31.0
+theme_override_colors/font_color = Color(0.78, 0.871667, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("11_praht")
+theme_override_font_sizes/font_size = 24
+text = "LUCIFER"
+
 [node name="ScreenShake" type="Node" parent="."]
 script = ExtResource("11_vjt44")
+
+[editable path="BackgroundViewport/SubViewport/PillarEnvironment"]

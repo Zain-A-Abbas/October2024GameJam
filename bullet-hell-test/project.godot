@@ -19,6 +19,8 @@ config/icon="res://icon.svg"
 
 EventBus="*res://EventBus.gd"
 Util="*res://Util.gd"
+SE="*res://Audio/SE.gd"
+BGM="*res://Audio/BGM.gd"
 
 [display]
 

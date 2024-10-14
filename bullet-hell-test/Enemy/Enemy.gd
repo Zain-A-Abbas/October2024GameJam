@@ -1,6 +1,8 @@
 extends Node2D
 class_name Enemy
 
+signal hp_update(new_hp: int)
+
 @onready var enemy_sprite: Sprite2D = $EnemySprite
 @onready var hurtbox: Area2D = $Hurtbox
 
@@ -13,6 +15,7 @@ var player: Player
 var state: String = "Start"
 var flip_x: int = 1
 var boss: bool = false
+var active: bool = true
 
 var damage_tween: Tween
 
@@ -39,14 +42,16 @@ func initialize(spawn_position: Vector2, _bullet_manager: BulletManager, _player
 
 func _physics_process(delta: float) -> void:
 	time += delta
-	if player.alive:
+	if player.alive && active:
 		enemy_process(delta)
 
 func enemy_process(_delta: float):
 	pass
 
 func enemy_hurt(damage: int = 1, bomb: bool = false):
+	SE.sound_effect("EnemyHit", 0.05)
 	hp -= damage
+	emit_signal("hp_update", hp)
 	if !bomb:
 		player.gain_points(damage)
 	if hp <= 0:
@@ -59,6 +64,7 @@ func enemy_hurt(damage: int = 1, bomb: bool = false):
 	damage_tween.tween_method(hurt_blink, 1.0, 0.0, 0.1)
 
 func enemy_die():
+	SE.sound_effect("Death")
 	EventBus.emit_signal("enemy_killed", position)
 	queue_free()
 

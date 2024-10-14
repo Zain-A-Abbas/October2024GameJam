@@ -14,7 +14,16 @@ var enemies_to_kill: int = 0
 var enemies_killed: int = 0
 
 func level():
-	spawn_enemy(LUCIFER, Vector2(GAME_SIZE.x * 0.5, 128), {"boss": true})
+	
+	# BOSS
+	BGM.load_bgm("Boss")
+	BGM.play_bgm()
+	Game.player.controllable = false
+	spawn_enemy(LUCIFER, Vector2(GAME_SIZE.x * 0.5, 144), {"boss": true})
+	await Util.timer(2.5)
+	Game.player.controllable = true
+	
+	
 	#spawn_enemy(JACKHAMMER_DEMON, Vector2(GAME_SIZE.x * 0.4, 128))
 	await enemies_cleared
 	await Util.timer(0.4)
