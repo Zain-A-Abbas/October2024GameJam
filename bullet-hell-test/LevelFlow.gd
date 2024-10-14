@@ -7,12 +7,15 @@ const GAME_SIZE: Vector2 = Vector2(720, 840)
 const SAW_DEMON = preload("res://Enemies/SawDemon/SawDemon.tscn")
 const DRILL_DEMON = preload("res://Enemies/DrillDemon/DrillDemon.tscn")
 const HAMMER_DEMON = preload("res://Enemies/Demon/HammerDemon.tscn")
+const JACKHAMMER_DEMON = preload("res://Enemies/JackhammerDemon/JackhammerDemon.tscn")
+const LUCIFER = preload("res://Enemies/Lucifer/Lucifer.tscn")
 
 var enemies_to_kill: int = 0
 var enemies_killed: int = 0
 
 func level():
-	spawn_enemy(HAMMER_DEMON, Vector2(GAME_SIZE.x * 0.4, 128))
+	spawn_enemy(LUCIFER, Vector2(GAME_SIZE.x * 0.5, 128), {"boss": true})
+	#spawn_enemy(JACKHAMMER_DEMON, Vector2(GAME_SIZE.x * 0.4, 128))
 	await enemies_cleared
 	await Util.timer(0.4)
 	spawn_enemy(DRILL_DEMON, Vector2(128, 128))
@@ -30,7 +33,6 @@ func level():
 	spawn_enemy(SAW_DEMON, Vector2(GAME_SIZE.x * 0.8, GAME_SIZE.y * 0.2), {"flip_x": -1})
 	spawn_enemy(DRILL_DEMON, Vector2(GAME_SIZE.x * 0.5, GAME_SIZE.y * 0.3))
 	await enemies_cleared
-	print("BNB")
 
 func reset_kill_count():
 	enemies_to_kill = 0

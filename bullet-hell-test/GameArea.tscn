@@ -1,11 +1,10 @@
-[gd_scene load_steps=132 format=3 uid="uid://b6h3ij4gp4wdj"]
+[gd_scene load_steps=130 format=3 uid="uid://b6h3ij4gp4wdj"]
 
 [ext_resource type="Shader" path="res://ImpactShader.gdshader" id="1_5ahoo"]
 [ext_resource type="Script" path="res://GameArea.gd" id="1_ks06v"]
 [ext_resource type="PackedScene" uid="uid://blmr0i0me6khu" path="res://Player.tscn" id="1_uesnc"]
 [ext_resource type="Texture2D" uid="uid://dmq2gravlxmu3" path="res://Other Textures/SpaceBG.png" id="2_0wwr0"]
 [ext_resource type="Script" path="res://LevelFlow.gd" id="2_vc2nh"]
-[ext_resource type="Texture2D" uid="uid://byhjqyjkpho0v" path="res://Other Textures/BabelBG.png" id="3_6cvsc"]
 [ext_resource type="Shader" path="res://Other Textures/Tower.gdshader" id="3_018yw"]
 [ext_resource type="Script" path="res://Enemy/BulletManager.gd" id="3_w4m8o"]
 [ext_resource type="PackedScene" uid="uid://be5rubao3et1m" path="res://PillarEnvironment.tscn" id="6_563cn"]
@@ -15,13 +14,8 @@
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t61l8"]
 shader = ExtResource("3_018yw")
-shader_parameter/scroll_speed = Vector2(0, -0.02)
+shader_parameter/scroll_speed = Vector2(0, -0.005)
 shader_parameter/alpha = 1.0
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_6ihye"]
-shader = ExtResource("3_018yw")
-shader_parameter/scroll_speed = Vector2(0, -0.03)
-shader_parameter/alpha = 0.51
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_3qc18"]
 viewport_path = NodePath("BackgroundViewport/SubViewport")
@@ -848,12 +842,6 @@ metadata/_edit_group_ = true
 [node name="Sprite2D" type="Sprite2D" parent="BackgroundViewport"]
 material = SubResource("ShaderMaterial_t61l8")
 texture = ExtResource("2_0wwr0")
-centered = false
-
-[node name="Sprite2D2" type="Sprite2D" parent="BackgroundViewport"]
-visible = false
-material = SubResource("ShaderMaterial_6ihye")
-texture = ExtResource("3_6cvsc")
 centered = false
 
 [node name="Sprite2D3" type="Sprite2D" parent="BackgroundViewport"]

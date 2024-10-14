@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://0pr6ky5moqnk"]
+[gd_scene load_steps=19 format=3 uid="uid://0pr6ky5moqnk"]
 
 [ext_resource type="Script" path="res://Game.gd" id="1_kwku1"]
 [ext_resource type="PackedScene" uid="uid://b6h3ij4gp4wdj" path="res://GameArea.tscn" id="1_ya7on"]
@@ -7,6 +7,13 @@
 [ext_resource type="Script" path="res://UI.gd" id="3_7ohwl"]
 [ext_resource type="FontFile" uid="uid://buuk2nfstr30k" path="res://UI/Fonts/NanumGothicCoding-Bold.ttf" id="4_teilu"]
 [ext_resource type="FontFile" uid="uid://bm4kgvtyc2nos" path="res://UI/Fonts/unispace bd.ttf" id="5_kmywk"]
+[ext_resource type="Texture2D" uid="uid://ckukm67hnqpo0" path="res://UI/Bomb.png" id="8_06pm3"]
+[ext_resource type="Texture2D" uid="uid://bl6etpm3xcl38" path="res://UI/Heart.png" id="9_3qng5"]
+[ext_resource type="Texture2D" uid="uid://cqx2wy7pu4o36" path="res://Other Textures/Logo.png" id="9_4jdj8"]
+[ext_resource type="Texture2D" uid="uid://ba5bubx3uytiy" path="res://UI/Inputs/keyboard_arrows.png" id="10_wwsid"]
+[ext_resource type="Texture2D" uid="uid://bveumi8upeusa" path="res://UI/Inputs/keyboard_z.png" id="11_h8pl4"]
+[ext_resource type="Texture2D" uid="uid://do5eg880nla1j" path="res://UI/Inputs/keyboard_x.png" id="12_jmw7k"]
+[ext_resource type="Texture2D" uid="uid://c1dft0vx8g32i" path="res://UI/Inputs/keyboard_shift_icon.png" id="13_5arvy"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xrfvs"]
 shader = ExtResource("2_j8s6v")
@@ -39,7 +46,7 @@ script = ExtResource("1_kwku1")
 canvas_item_default_texture_filter = 0
 size = Vector2i(720, 840)
 
-[node name="Node2D" parent="SubViewport" instance=ExtResource("1_ya7on")]
+[node name="GameArea" parent="SubViewport" instance=ExtResource("1_ya7on")]
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_xrfvs")
@@ -59,10 +66,10 @@ texture = ExtResource("2_8br6l")
 metadata/_edit_lock_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="UI"]
-offset_left = 811.0
+offset_left = 820.0
 offset_top = 45.0
-offset_right = 1161.0
-offset_bottom = 674.0
+offset_right = 1170.0
+offset_bottom = 384.0
 theme_override_styles/panel = SubResource("StyleBoxFlat_utrl6")
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
@@ -122,7 +129,7 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 8
 theme_override_fonts/font = ExtResource("5_kmywk")
 theme_override_font_sizes/font_size = 32
-text = "907890"
+text = "0"
 horizontal_alignment = 2
 
 [node name="PanelContainer4" type="PanelContainer" parent="UI/PanelContainer/VBoxContainer"]
@@ -162,9 +169,161 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="UI/PanelContainer/VBoxContainer/PanelContainer3/HBoxContainer"]
 layout_mode = 2
-theme_override_colors/font_color = Color(0.81, 0.384885, 0.2673, 1)
+theme_override_colors/font_color = Color(0.2187, 0.71145, 0.81, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 12
 theme_override_fonts/font = ExtResource("4_teilu")
 theme_override_font_sizes/font_size = 51
 text = "BOMB"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer/PanelContainer3/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Bomb1" type="TextureRect" parent="UI/PanelContainer/VBoxContainer/PanelContainer3/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_06pm3")
+
+[node name="Bomb2" type="TextureRect" parent="UI/PanelContainer/VBoxContainer/PanelContainer3/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_06pm3")
+
+[node name="Bomb3" type="TextureRect" parent="UI/PanelContainer/VBoxContainer/PanelContainer3/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("8_06pm3")
+
+[node name="PanelContainer6" type="PanelContainer" parent="UI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_iiary")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer/PanelContainer6"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="UI/PanelContainer/VBoxContainer/PanelContainer6/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.81, 0.2187, 0.228555, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 12
+theme_override_fonts/font = ExtResource("4_teilu")
+theme_override_font_sizes/font_size = 51
+text = "LIFE"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer/PanelContainer6/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 10
+
+[node name="Life1" type="TextureRect" parent="UI/PanelContainer/VBoxContainer/PanelContainer6/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_3qng5")
+
+[node name="Life2" type="TextureRect" parent="UI/PanelContainer/VBoxContainer/PanelContainer6/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_3qng5")
+
+[node name="Life3" type="TextureRect" parent="UI/PanelContainer/VBoxContainer/PanelContainer6/HBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("9_3qng5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+texture = ExtResource("10_wwsid")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="UI/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("4_teilu")
+theme_override_font_sizes/font_size = 40
+text = "MOVE"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+texture = ExtResource("11_h8pl4")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="UI/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("4_teilu")
+theme_override_font_sizes/font_size = 40
+text = "SHOOT"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+texture = ExtResource("12_jmw7k")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="UI/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("4_teilu")
+theme_override_font_sizes/font_size = 40
+text = "BOMB"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="UI/PanelContainer/VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="UI/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(128, 0)
+layout_mode = 2
+texture = ExtResource("13_5arvy")
+stretch_mode = 3
+
+[node name="Label" type="Label" parent="UI/PanelContainer/VBoxContainer/VBoxContainer/HBoxContainer4"]
+layout_mode = 2
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 8
+theme_override_fonts/font = ExtResource("4_teilu")
+theme_override_font_sizes/font_size = 40
+text = "SLOW DOWN"
+
+[node name="TextureRect2" type="TextureRect" parent="UI"]
+offset_left = 850.0
+offset_top = 750.0
+offset_right = 1450.0
+offset_bottom = 1050.0
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("9_4jdj8")
+metadata/_edit_lock_ = true
+
+[node name="Fade1" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1200.0
+offset_bottom = 900.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Fade2" type="ColorRect" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = 32.0
+offset_right = 784.0
+offset_bottom = 872.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)

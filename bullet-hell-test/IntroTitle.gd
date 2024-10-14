@@ -1,5 +1,6 @@
 extends Node2D
 
+const GAME = preload("res://Game.tscn")
 @onready var intro_nodes: Control = $CanvasLayer/Control/IntroNodes
 @onready var intro_text: Label = $CanvasLayer/Control/IntroNodes/IntroText
 @onready var title_bg: TextureRect = $CanvasLayer/Control/TitleNodes/TitleBG
@@ -7,6 +8,7 @@ extends Node2D
 @onready var title_options: VBoxContainer = $CanvasLayer/Control/TitleNodes/TitleOptions
 @onready var start_label: Label = $CanvasLayer/Control/TitleNodes/TitleOptions/StartLabel
 @onready var exit_label: Label = $CanvasLayer/Control/TitleNodes/TitleOptions/ExitLabel
+@onready var control: Control = $CanvasLayer/Control
 
 const INTRO: Array[String] = [
 	"In the Ancient of Days...",
@@ -15,13 +17,16 @@ const INTRO: Array[String] = [
 	"And now, eons since, humanity has sided with the\nforces of Lucifer, to once again...",
 	"*drum roll*",
 	"... CONSTRUCT a tower, to heaven itself.",
-	"You, Archangel Gabriel-Chan, must put a stop to them."
+	"You, Archangel Gabriel-Chan, must put a stop to them.",
+	"Not only is the tower an affront to God, but also...",
+	"... The tower, fails to meet safety compliance standards."
 ]
 
 var state = "Intro"
 var intro_tween: Tween
 var selected_option: int = 0
 var highlight_tween: Tween
+var skip_on_gameover: bool = false
 
 func _ready() -> void:
 	intro_nodes.visible = false
@@ -32,34 +37,38 @@ func _ready() -> void:
 	intro()
 
 func intro():
-	await Util.timer(0.5)
-	intro_text.text = ""
-	if state != "None":
-		intro_nodes.visible = true
-		for text in INTRO:
-			if state == "None":
-				break
-			intro_text.modulate.a = 0.0
-			intro_text.text = text
-			intro_tween = create_tween()
-			intro_tween.tween_property(intro_text, "modulate:a", 1.0, 0.4)
-			await intro_tween.finished
-			if state == "None":
-				break
-			intro_tween = create_tween()
-			intro_tween.tween_property(intro_text, "modulate:a", 1.0, 4.0)
-			await intro_tween.finished
-			if state == "None":
-				break
-			intro_tween = create_tween()
-			intro_tween.tween_property(intro_text, "modulate:a", 0.0, 0.4)
-			await intro_tween.finished
+	await Util.timer(0.1)
+	if skip_on_gameover || Input.is_action_pressed("bomb"):
+		pass
+	else:
+		await Util.timer(0.5)
+		intro_text.text = ""
+		if state != "None":
+			intro_nodes.visible = true
+			for text in INTRO:
+				if state == "None":
+					break
+				intro_text.modulate.a = 0.0
+				intro_text.text = text
+				intro_tween = create_tween()
+				intro_tween.tween_property(intro_text, "modulate:a", 1.0, 0.4)
+				await intro_tween.finished
+				if state == "None":
+					break
+				intro_tween = create_tween()
+				intro_tween.tween_property(intro_text, "modulate:a", 1.0, 4.0)
+				await intro_tween.finished
+				if state == "None":
+					break
+				intro_tween = create_tween()
+				intro_tween.tween_property(intro_text, "modulate:a", 0.0, 0.4)
+				await intro_tween.finished
 
 	state = "None"
 	
 	title_bg.modulate.a = 0.0
 	title_bg.visible = true
-	var title_tween: Tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_EXPO)
+	var title_tween: Tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_QUAD)
 	title_tween.tween_property(title_bg, "modulate:a", 1.0, 2.0)
 	await title_tween.finished
 	
@@ -102,6 +111,13 @@ func _physics_process(delta: float) -> void:
 			highlight(selected_option)
 		
 		if Input.is_action_just_pressed("shoot"):
+			if selected_option == 0:
+				state == "None"
+				var fade_tween: Tween = create_tween()
+				fade_tween.tween_property(control, "modulate:v", 0.0, 1.0)
+				await fade_tween.finished
+				get_tree().change_scene_to_packed(GAME)
+				return
 			if selected_option == 1:
 				get_tree().quit()
 

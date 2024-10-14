@@ -1,7 +1,7 @@
 extends Enemy
 
 const NAIL_BULLET = preload("res://Bullets/NailBullet.tres")
-const BULLET_COOLDOWN: float = 0.075
+const BULLET_COOLDOWN: float = 0.15
 const MOVE_RANGE: Vector2 = Vector2(64, 64)
 var bullet_angle: float = 0.0
 var bullet_cooldown: float = 0.0
@@ -16,6 +16,7 @@ func initialize(spawn_position: Vector2, _bullet_manager: BulletManager, _player
 		spin_direction = args["spin_direction"]
 
 func enemy_process(delta: float):
+	super(delta)
 	if start_position == Vector2.ZERO:
 		start_position = position 
 	pos_tracker += delta

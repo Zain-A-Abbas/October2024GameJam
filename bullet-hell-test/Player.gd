@@ -6,19 +6,24 @@ class_name Player
 @onready var point_attractor: Area2D = $PointAttractor
 @onready var point_pickup: Area2D = $PointPickup
 @onready var hitbox_sprite: Sprite2D = $HitboxSprite
+@onready var player_sprite: Sprite2D = $PlayerSprite
+@onready var hurt_anim: AnimatedSprite2D = $HurtAnim
 
 const PLAYER_SPEED: float = 20000.0
 const BULLET_COOLDOWN: float = 0.1
 const PLAYER_BULLET = preload("res://Bullets/PlayerBullet.tres")
+const GAME_REGION: Vector2 = Vector2(720, 840)
 
 @export var bullet_manager: BulletManager
-var controllable: bool = true
+var controllable: bool = false
 var cooldown_tracker: float = 0.0
 var bullet_cooldown: bool = false
 
 var level_tracker: int = 0
+var life_tracker: int = 0
 var bomb_tracker: int = 0
 var level: int = 1
+var alive: bool = true
 
 func _ready() -> void:
 	hitbox_sprite.modulate.a = 0.0
@@ -35,7 +40,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 func input(delta: float):
-	if Input.is_action_just_pressed("bomb") && Game.bombs > -100:
+	if Input.is_action_just_pressed("bomb") && Game.bombs > 0:
 		Game.bombs -= 1
 		game_area.bomb()
 		return
@@ -73,22 +78,57 @@ func shoot_position() -> Vector2:
 	return self.position + Vector2(0, -10)
 
 func player_hit():
-	visible = false
+	self.self_modulate.a = 0
+	player_sprite.self_modulate.a = 0
+	hitbox_sprite.self_modulate.a = 0
+	
+	Game.life -= 1
+	Game.points *= 0.7
+	Game.bombs = 0
+	bomb_tracker = 0
+	level_tracker = 0
+	
+	level = 1
+	
+	velocity = Vector2.ZERO
+	controllable = false
+	alive = false
 	hurtbox.set_deferred("monitoring", false)
+	hurt_anim.play("default")
+	hurt_anim.visible = true
+	await hurt_anim.animation_finished
+	hurt_anim.visible = false
+	
+	position = Vector2(GAME_REGION.x / 2, GAME_REGION.y * 1.25)
+	
+	self.self_modulate.a = 1
+	player_sprite.self_modulate.a = 1
+	hitbox_sprite.self_modulate.a = 1
+	var revive_tween: Tween = create_tween().set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CIRC)
+	revive_tween.tween_property(self, "position", Vector2(GAME_REGION.x * 0.5, GAME_REGION.y * 0.8), 1.5)
+	await revive_tween.finished
+	
+	controllable = true
+	alive = true
+	hurtbox.set_deferred("monitoring", true)
 
 func gain_points(points: int):
 	Game.points += points
 	bomb_tracker += points
 	level_tracker += points
+	life_tracker += points
 	if level_tracker >= 250 && level == 2:
-		level_tracker -= 250
+		level_tracker = 0
 		level += 1
 	elif level_tracker >= 100 && level == 1:
-		level_tracker -= 100
+		level_tracker = 0
 		level += 1
-	if bomb_tracker >= 50 && Game.bombs < 3:
-		bomb_tracker -= 50
-		Game.bombs += 1
+	if bomb_tracker >= 100 && Game.bombs < 3:
+		bomb_tracker = 0
+		Game.gain_bomb()
+	if life_tracker >= 150 && Game.life < 3:
+		life_tracker = 0
+		Game.life += 1
 
 func _on_hurtbox_area_entered(area: Area2D) -> void:
 	player_hit()

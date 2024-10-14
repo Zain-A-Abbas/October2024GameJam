@@ -8,6 +8,7 @@ var pos_tracker: float = 0.0
 
 
 func enemy_process(delta: float):
+	super(delta)
 	match state:
 		"Start":
 			state = "Fight"

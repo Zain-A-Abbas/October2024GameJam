@@ -12,9 +12,10 @@ const POINT_REWARD = preload("res://PointReward.tscn")
 @onready var impact_frame: Sprite2D = $ImpactFrame
 @onready var screen_shake: TraumaComponent = $ScreenShake
 
-func _ready() -> void:
+func initialize():
 	EventBus.enemy_killed.connect(enemy_death)
-	await get_tree().create_timer(1.0).timeout
+	player.controllable = true
+	await Util.timer(1.0)
 	level_flow.level()
 
 func bomb():
@@ -27,7 +28,7 @@ func bomb():
 	enemy_bullets.clear_bullets()
 	for enemy in enemies.get_children():
 		if is_instance_of(enemy, Enemy):
-			enemy.enemy_hurt(25)
+			enemy.enemy_hurt(25 + 75 * int(!enemy.boss), true)
 
 func spawn_enemy(enemy: PackedScene, spawn_position: Vector2, args: Dictionary = {}):
 	var new_enemy: Enemy = enemy.instantiate()

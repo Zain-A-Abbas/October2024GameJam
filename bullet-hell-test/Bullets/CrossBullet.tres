@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="BulletData" load_steps=5 format=3 uid="uid://b0er6wi3ecj7s"]
+
+[ext_resource type="Script" path="res://Bullets/CrossBulletScript.gd" id="1_7vby8"]
+[ext_resource type="Script" path="res://BulletResource.gd" id="1_c3syv"]
+[ext_resource type="Texture2D" uid="uid://8o6kb66af2ai" path="res://Bullet Sprites/Cross.png" id="2_rx0gh"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ardb6"]
+radius = 12.0
+height = 60.0
+
+[resource]
+script = ExtResource("1_c3syv")
+sprite = ExtResource("2_rx0gh")
+speed = 1.0
+hue = 0.0
+sprite_rotation = 0.0
+bullet_collision = SubResource("CapsuleShape2D_ardb6")
+custom_script = ExtResource("1_7vby8")

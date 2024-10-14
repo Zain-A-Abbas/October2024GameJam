@@ -6,3 +6,4 @@ class_name BulletData
 @export var hue: float = 0.0
 @export var sprite_rotation: float = 0.0
 @export var bullet_collision: CapsuleShape2D
+@export var custom_script: Script

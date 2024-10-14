@@ -10,7 +10,7 @@ height = 32.0
 [resource]
 script = ExtResource("1_03w6t")
 sprite = ExtResource("2_rijoy")
-speed = 1.0
+speed = 1.5
 hue = 0.5
 sprite_rotation = 0.0
 bullet_collision = SubResource("CapsuleShape2D_e3888")

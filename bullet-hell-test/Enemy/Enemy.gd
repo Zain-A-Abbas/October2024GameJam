@@ -12,6 +12,7 @@ var bullet_manager: BulletManager
 var player: Player
 var state: String = "Start"
 var flip_x: int = 1
+var boss: bool = false
 
 var damage_tween: Tween
 
@@ -38,14 +39,16 @@ func initialize(spawn_position: Vector2, _bullet_manager: BulletManager, _player
 
 func _physics_process(delta: float) -> void:
 	time += delta
-	enemy_process(delta)
+	if player.alive:
+		enemy_process(delta)
 
 func enemy_process(_delta: float):
 	pass
 
-func enemy_hurt(damage: int = 1):
+func enemy_hurt(damage: int = 1, bomb: bool = false):
 	hp -= damage
-	player.gain_points(damage)
+	if !bomb:
+		player.gain_points(damage)
 	if hp <= 0:
 		enemy_die()
 		return

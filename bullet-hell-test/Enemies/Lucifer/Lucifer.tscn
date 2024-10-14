@@ -1,0 +1,30 @@
+[gd_scene load_steps=7 format=3 uid="uid://mbjrkk6yxrqb"]
+
+[ext_resource type="PackedScene" uid="uid://cj3v1wmjdjs6p" path="res://Enemy/Enemy.tscn" id="1_qxlqy"]
+[ext_resource type="Shader" path="res://Enemy/EnemyShader.gdshader" id="2_345k5"]
+[ext_resource type="Script" path="res://Enemies/Lucifer/lucifer.gd" id="2_qfw5x"]
+[ext_resource type="Texture2D" uid="uid://d2yf0nlgbyebp" path="res://Enemies/Lucifer/Lucifer.png" id="3_5ou4h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ekarw"]
+resource_local_to_scene = true
+shader = ExtResource("2_345k5")
+shader_parameter/hurt = 0.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bu437"]
+radius = 35.0
+height = 176.0
+
+[node name="Lucifer" instance=ExtResource("1_qxlqy")]
+script = ExtResource("2_qfw5x")
+hp = 1666
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="EnemySprite" parent="." index="0"]
+material = SubResource("ShaderMaterial_ekarw")
+texture = ExtResource("3_5ou4h")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D" parent="Hurtbox" index="0"]
+shape = SubResource("CapsuleShape2D_bu437")
+metadata/_edit_lock_ = true

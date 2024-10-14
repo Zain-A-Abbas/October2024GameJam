@@ -40,6 +40,8 @@ func setup_bullet(bullet_resource: BulletData, args: Dictionary = {}):
 	if args.has("rotation"):
 		bullet_rotation = args["rotation"] - PI/2
 		rotation = bullet_rotation
+	if args.has("speed_mod"):
+		speed *= args["speed_mod"]
 	sprite_rotation = bullet_resource.sprite_rotation
 
 func _physics_process(delta: float) -> void:

@@ -11,5 +11,5 @@ script = ExtResource("1_mqhsc")
 sprite = ExtResource("2_bfe1t")
 speed = 0.25
 hue = 0.0
-sprite_rotation = 6.284
+sprite_rotation = 12.568
 bullet_collision = SubResource("CapsuleShape2D_se4mw")
