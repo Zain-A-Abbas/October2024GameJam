@@ -16,7 +16,7 @@ height = 176.0
 
 [node name="Lucifer" instance=ExtResource("1_qxlqy")]
 script = ExtResource("2_qfw5x")
-hp = 1666
+hp = 1200
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 

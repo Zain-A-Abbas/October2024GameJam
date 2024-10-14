@@ -18,6 +18,8 @@ func initialize(player_bullet: bool = false):
 		static_body_2d.set_collision_layer_value(2, true)
 	deactivate()
 
+
+
 func activate(startPos: Vector2):
 	position = startPos
 	static_body_2d.set_deferred("monitorable", true)

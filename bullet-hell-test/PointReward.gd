@@ -58,7 +58,7 @@ func die():
 	).from(Vector2.ONE)
 	await die_tween.finished
 	if player:
-		SE.sound_effect("UIScroll")
+		SE.sound_effect("UIScroll", 0.75)
 		player.gain_points(points)
 	queue_free()
 

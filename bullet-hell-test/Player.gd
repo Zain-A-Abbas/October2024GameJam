@@ -25,6 +25,10 @@ var bomb_tracker: int = 0
 var level: int = 1
 var alive: bool = true
 
+# Coyote time
+var bomb_safety: bool = false
+var bomb_safety_wait: bool = false
+
 func _ready() -> void:
 	hitbox_sprite.modulate.a = 0.0
 	Game.player = self
@@ -37,12 +41,15 @@ func _physics_process(delta: float) -> void:
 			cooldown_tracker = 0.0
 	if controllable:
 		input(delta)
+	else:
+		velocity = Vector2.ZERO
 	move_and_slide()
 
 func input(delta: float):
 	if Input.is_action_just_pressed("bomb") && Game.bombs > 0:
 		Game.bombs -= 1
 		SE.sound_effect("Bomb")
+		activate_bomb_safety()
 		game_area.bomb()
 		return
 	
@@ -58,6 +65,11 @@ func input(delta: float):
 	
 	if Input.is_action_pressed("shoot"):
 		shoot()
+
+func activate_bomb_safety():
+	bomb_safety = true
+	await Util.timer(0.133)
+	bomb_safety = false
 
 func shoot():
 	if bullet_cooldown:
@@ -79,12 +91,19 @@ func shoot_position() -> Vector2:
 	return self.position + Vector2(0, -10)
 
 func player_hit():
+	if bomb_safety_wait:
+		return
+	bomb_safety_wait = true
+	await Util.timer(0.133)
+	bomb_safety_wait = false
+	if bomb_safety:
+		return
 	SE.sound_effect("Death")
 	self.self_modulate.a = 0
 	player_sprite.self_modulate.a = 0
 	hitbox_sprite.self_modulate.a = 0
 	
-	Game.life -= 1
+	EventBus.emit_signal("lose_life")
 	Game.points *= 0.7
 	Game.bombs = 0
 	bomb_tracker = 0

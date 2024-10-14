@@ -16,6 +16,7 @@ var state: String = "Start"
 var flip_x: int = 1
 var boss: bool = false
 var active: bool = true
+var killed: bool = false
 
 var damage_tween: Tween
 
@@ -64,8 +65,11 @@ func enemy_hurt(damage: int = 1, bomb: bool = false):
 	damage_tween.tween_method(hurt_blink, 1.0, 0.0, 0.1)
 
 func enemy_die():
+	if killed:
+		return
 	SE.sound_effect("Death")
 	EventBus.emit_signal("enemy_killed", position)
+	killed = true
 	queue_free()
 
 func hurt_blink(value: float):

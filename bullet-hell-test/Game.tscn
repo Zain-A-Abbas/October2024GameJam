@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://0pr6ky5moqnk"]
+[gd_scene load_steps=20 format=3 uid="uid://0pr6ky5moqnk"]
 
 [ext_resource type="Script" path="res://Game.gd" id="1_kwku1"]
 [ext_resource type="PackedScene" uid="uid://b6h3ij4gp4wdj" path="res://GameArea.tscn" id="1_ya7on"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bveumi8upeusa" path="res://UI/Inputs/keyboard_z.png" id="11_h8pl4"]
 [ext_resource type="Texture2D" uid="uid://do5eg880nla1j" path="res://UI/Inputs/keyboard_x.png" id="12_jmw7k"]
 [ext_resource type="Texture2D" uid="uid://c1dft0vx8g32i" path="res://UI/Inputs/keyboard_shift_icon.png" id="13_5arvy"]
+[ext_resource type="FontFile" uid="uid://dpgkdne53okab" path="res://UI/Fonts/cambria.ttc" id="15_5iid2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_xrfvs"]
 shader = ExtResource("2_j8s6v")
@@ -327,3 +328,74 @@ offset_bottom = 872.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="GameOver" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(1200, 900)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="GameOver/CenterContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("15_5iid2")
+theme_override_font_sizes/font_size = 64
+text = "GAME OVER"
+horizontal_alignment = 1
+
+[node name="Win" type="Control" parent="."]
+visible = false
+custom_minimum_size = Vector2(1200, 900)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="ColorRect" type="ColorRect" parent="Win"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="CenterContainer" type="CenterContainer" parent="Win"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Win/CenterContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("15_5iid2")
+theme_override_font_sizes/font_size = 64
+text = "VICTORY!
+You have destroyed the
+
+WICKED TOWER OF MORTAL HUBRIS!"
+horizontal_alignment = 1

@@ -16,8 +16,11 @@ func activate(startPos: Vector2):
 	starting_position = startPos
 	static_body_2d.set_deferred("monitorable", false)
 	active = true
+	modulate.a = 0.0
 	visible = true
 	position = Game.player.position + starting_position
+	var activate_tween: Tween = create_tween()
+	activate_tween.tween_property(self, "modulate:a", 1.0, 0.25)
 	await Util.timer(1.0)
 	static_body_2d.set_deferred("monitorable", true)
 	bullet_state = "Go"

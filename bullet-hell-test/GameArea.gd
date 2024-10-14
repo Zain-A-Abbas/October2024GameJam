@@ -24,9 +24,12 @@ func initialize():
 	await Util.timer(1.0)
 	level_flow.level()
 
+func set_pillar_speed(speed: float):
+	pillar_mesh.mesh.surface_get_material(0).set_shader_parameter("pillar_speed", speed)
+
 func spawn_boss(boss: Enemy):
 	Game.life = 3
-	pillar_mesh.mesh.surface_get_material(0).set_shader_parameter("pillar_speed", 2.0)
+	set_pillar_speed(2.0)
 	boss_hp.modulate.a = 0.0
 	boss_hp.visible = true
 	boss_bar.value = 0.0
@@ -35,7 +38,7 @@ func spawn_boss(boss: Enemy):
 	bar_tween.tween_property(boss_hp, "modulate:a", 1.0, 0.7)
 	await bar_tween.finished
 	bar_tween = create_tween().set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_CUBIC)
-	bar_tween.tween_property(boss_bar, "value", boss.hp, 2).from(0)
+	bar_tween.tween_property(boss_bar, "value", boss.hp, 2.0).from(0)
 	await bar_tween.finished
 	boss.hp_update.connect(boss_bar.set_value)
 

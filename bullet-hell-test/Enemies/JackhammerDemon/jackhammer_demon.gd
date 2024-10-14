@@ -3,7 +3,7 @@ extends Enemy
 const SIGN_BULLET = preload("res://Bullets/SignBullet.tres")
 const BULLET_COOLDOWN: float = 3.0
 const MOVE_RANGE: Vector2 = Vector2(52, 72)
-const BULLET_COUNT: int = 15
+const BULLET_COUNT: int = 8
 var bullet_cooldown: float = 0.0
 var is_cooldown: bool = false
 var pos_tracker: float = 0.0

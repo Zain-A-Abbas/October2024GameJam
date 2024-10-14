@@ -26,12 +26,19 @@ const SAW_COOLDOWN: float = 100.0
 const SAW_DURATION: float = 100.0
 const SAW_ANGLE_OFFSETS: Array[int] = [-40, -20, 0, 20, 40]
 
+const PENTAGRAM_COOLDOWN: float = 0.64
+const PENTAGRAM_DURATION: float = 8.0
+const PENTAGRAM_STARTING_POINT: Vector2 = Vector2(0, 128)
+const PENTAGRAM_SIDE_LENGTH: Vector2 = Vector2(288, 0)
+const PENTAGRAM_SIDE_ANGLE: float = 72 * PI / 180
+
 const PHASES: Array[String] = [
 	"Drill",
 	"Super Drill",
 	"Sign",
 	"Cross Barrage",
-	"Saw Wave"
+	"Saw Wave",
+	"Pentagram"
 ]
 
 var start_position: Vector2 = Vector2.ZERO
@@ -81,6 +88,25 @@ func enemy_process(delta: float):
 		"Start":
 			cycle_phase()
 			return
+		
+		"Pentagram":
+			position.x = start_position.x + DRILL_MOVE_RANGE.x * sin(pos_tracker * 1.2)
+			position.y = start_position.y + DRILL_MOVE_RANGE.y * sin(pos_tracker * 0.8)
+			
+			if is_cooldown:
+				return
+			is_cooldown = true
+			bullet_cooldown = 0
+			
+			var bullet_dir: float = PI / 2 + deg_to_rad(randi_range(-60, 60))
+			var current_angle: float = -PENTAGRAM_SIDE_ANGLE
+			var current_pos: Vector2 = position + PENTAGRAM_STARTING_POINT
+			for i in 5:
+				var next_pos: Vector2 = current_pos + PENTAGRAM_SIDE_LENGTH.rotated(current_angle)
+				bullet_line(current_pos, next_pos, 12, SAW_BULLET, {"rotation": bullet_dir, "size_mod": 0.5})
+				current_pos = next_pos
+				current_angle -= PENTAGRAM_SIDE_ANGLE * 2
+		
 		"Drill":
 			position.x = start_position.x + DRILL_MOVE_RANGE.x * sin(pos_tracker * 1.2)
 			position.y = start_position.y + DRILL_MOVE_RANGE.y * sin(pos_tracker * 0.8)
@@ -148,7 +174,7 @@ func enemy_process(delta: float):
 				await Util.timer(0.2)
 		
 		"Saw Wave":
-			position = position.move_toward(move_to, delta * 350)
+			position = position.move_toward(move_to, delta * 600)
 			if is_cooldown:
 				return
 			is_cooldown = true
@@ -160,7 +186,7 @@ func saw_wave():
 	while (position != move_to):
 		await get_tree().physics_frame
 	await Util.timer(0.1)
-	var wave_count: int = 4
+	var wave_count: int = 5
 	var attack_count: int = 2
 	
 	await saw_wave_fire(attack_count, wave_count)
@@ -175,6 +201,10 @@ func saw_wave():
 	await saw_wave_fire(attack_count, wave_count)
 	
 	await Util.timer(0.8)
+	move_to = start_position
+	while (position != move_to):
+		await get_tree().physics_frame
+	pos_tracker = 0.0
 	can_phase_change = true
 	cycle_phase()
 
@@ -183,9 +213,17 @@ func saw_wave_fire(attack_count: int, wave_count: int):
 		for j in wave_count:
 			var angle_to_player: float = position.angle_to_point(player.position)
 			for angle in SAW_ANGLE_OFFSETS:
-				bullet_manager.spawn_bullet(position, SAW_BULLET, {"rotation": angle_to_player + deg_to_rad(angle), "size_mod": 2.5, "speed_mod": 2.5})
+				bullet_manager.spawn_bullet(position, SAW_BULLET, {"rotation": angle_to_player + deg_to_rad(angle), "size_mod": 2.5, "speed_mod": 2.75})
 			await Util.timer(0.1)
-		await Util.timer(0.7)
+		await Util.timer(0.4)
+
+func bullet_line(point_a: Vector2, point_b: Vector2, bullet_count: int, bullet_type: BulletData, args: Dictionary = {}):
+	assert(bullet_count > 1)
+	var bullet_distance: Vector2 = (point_b - point_a) / (bullet_count - 1)
+	for i in bullet_count:
+		var bullet_pos: Vector2 = point_a + bullet_distance * i
+		bullet_manager.spawn_bullet(bullet_pos, bullet_type, args)
+
 
 func cycle_phase():
 	SE.sound_effect("PhaseCycle")
@@ -193,7 +231,6 @@ func cycle_phase():
 	time = 0.0
 	await Util.timer(2.0)
 	change_state(PHASES.pick_random())
-
 
 func change_state(new_state: String):
 	is_cooldown = false
@@ -216,3 +253,6 @@ func change_state(new_state: String):
 			current_cooldown = SAW_COOLDOWN
 			current_duration = SAW_DURATION
 			move_to = Vector2(720 * 0.2, 840 * 0.2)
+		"Pentagram":
+			current_cooldown = PENTAGRAM_COOLDOWN
+			current_duration = PENTAGRAM_DURATION

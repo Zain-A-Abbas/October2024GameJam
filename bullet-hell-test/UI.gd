@@ -16,6 +16,8 @@ extends CanvasLayer
 
 
 func _physics_process(delta: float) -> void:
+	if !Game.player:
+		return
 	score_label.text = str(Game.points)
 	level_label.text = str(Game.player.level)
 	bomb_update(Game.bombs)
