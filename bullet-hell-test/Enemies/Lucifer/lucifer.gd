@@ -26,7 +26,7 @@ const SAW_COOLDOWN: float = 100.0
 const SAW_DURATION: float = 100.0
 const SAW_ANGLE_OFFSETS: Array[int] = [-40, -20, 0, 20, 40]
 
-const PENTAGRAM_COOLDOWN: float = 0.64
+const PENTAGRAM_COOLDOWN: float = 1.28
 const PENTAGRAM_DURATION: float = 8.0
 const PENTAGRAM_STARTING_POINT: Vector2 = Vector2(0, 128)
 const PENTAGRAM_SIDE_LENGTH: Vector2 = Vector2(288, 0)
@@ -103,7 +103,7 @@ func enemy_process(delta: float):
 			var current_pos: Vector2 = position + PENTAGRAM_STARTING_POINT
 			for i in 5:
 				var next_pos: Vector2 = current_pos + PENTAGRAM_SIDE_LENGTH.rotated(current_angle)
-				bullet_line(current_pos, next_pos, 12, SAW_BULLET, {"rotation": bullet_dir, "size_mod": 0.5})
+				bullet_line(current_pos, next_pos, 12, SAW_BULLET, {"rotation": bullet_dir, "size_mod": 0.32})
 				current_pos = next_pos
 				current_angle -= PENTAGRAM_SIDE_ANGLE * 2
 		
@@ -186,7 +186,7 @@ func saw_wave():
 	while (position != move_to):
 		await get_tree().physics_frame
 	await Util.timer(0.1)
-	var wave_count: int = 5
+	var wave_count: int = 4
 	var attack_count: int = 2
 	
 	await saw_wave_fire(attack_count, wave_count)

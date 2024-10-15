@@ -102,7 +102,7 @@ theme_override_constants/outline_size = 12
 theme_override_fonts/font = ExtResource("3_7riby")
 theme_override_font_sizes/font_size = 24
 text = "Created By: ThreeDaysGuy
-Music: Hifuu Music Arhives, ZUN"
+Music: Hifuu Music Archives"
 horizontal_alignment = 2
 vertical_alignment = 2
 metadata/_edit_lock_ = true

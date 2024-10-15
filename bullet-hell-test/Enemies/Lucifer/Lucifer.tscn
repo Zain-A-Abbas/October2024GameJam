@@ -10,13 +10,12 @@ resource_local_to_scene = true
 shader = ExtResource("2_345k5")
 shader_parameter/hurt = 0.0
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bu437"]
-radius = 35.0
-height = 176.0
+[sub_resource type="CircleShape2D" id="CircleShape2D_kqt65"]
+radius = 104.393
 
 [node name="Lucifer" instance=ExtResource("1_qxlqy")]
 script = ExtResource("2_qfw5x")
-hp = 1200
+hp = 6666
 metadata/_edit_group_ = true
 metadata/_edit_lock_ = true
 
@@ -26,5 +25,5 @@ texture = ExtResource("3_5ou4h")
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" parent="Hurtbox" index="0"]
-shape = SubResource("CapsuleShape2D_bu437")
+shape = SubResource("CircleShape2D_kqt65")
 metadata/_edit_lock_ = true

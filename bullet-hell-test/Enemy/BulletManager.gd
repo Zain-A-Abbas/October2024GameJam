@@ -18,10 +18,9 @@ func get_bullet() -> Bullet:
 				return child
 	return null
 
-func spawn_bullet(bulletPosition: Vector2, bulletData: BulletData, args: Dictionary = {}):
+func spawn_bullet(bulletPosition: Vector2, bulletData: BulletData, args: Dictionary = {}, enemy: bool = true):
 	var bullet: Bullet = get_bullet()
 	var new_script: Script = bulletData.custom_script.duplicate() if bulletData.custom_script else load("res://Enemy/Bullet.gd")
-	
 	var old_body = bullet.static_body_2d
 	var old_notifier = bullet.visible_on_screen_notifier_2d
 	var old_collision = bullet.collision_shape_2d
@@ -31,6 +30,8 @@ func spawn_bullet(bulletPosition: Vector2, bulletData: BulletData, args: Diction
 	bullet.collision_shape_2d = old_collision
 	
 	bullet.setup_bullet(bulletData, args)
+	if enemy:
+		SE.sound_effect("EnemyFire", 0.2)
 	bullet.activate(bulletPosition)
 
 func clear_bullets():

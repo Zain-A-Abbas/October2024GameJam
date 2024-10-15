@@ -18,6 +18,7 @@ const POINT_REWARD = preload("res://PointReward.tscn")
 func _ready() -> void:
 	boss_hp.visible = false
 
+
 func initialize():
 	EventBus.enemy_killed.connect(enemy_death)
 	player.controllable = true

@@ -123,7 +123,7 @@ func _physics_process(delta: float) -> void:
 				var fade_tween: Tween = create_tween()
 				fade_tween.tween_property(control, "modulate:v", 0.0, 1.0)
 				await fade_tween.finished
-				get_tree().change_scene_to_packed(GAME.duplicate())
+				get_tree().change_scene_to_packed(load("res://Game.tscn"))
 				return
 			if selected_option == 1:
 				get_tree().quit()

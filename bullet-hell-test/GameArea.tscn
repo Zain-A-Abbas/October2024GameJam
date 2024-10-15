@@ -1,4 +1,4 @@
-[gd_scene load_steps=133 format=3 uid="uid://b6h3ij4gp4wdj"]
+[gd_scene load_steps=134 format=3 uid="uid://b6h3ij4gp4wdj"]
 
 [ext_resource type="Shader" path="res://ImpactShader.gdshader" id="1_5ahoo"]
 [ext_resource type="Script" path="res://GameArea.gd" id="1_ks06v"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bh20vgkilabwa" path="res://Other Textures/EnemySpawn.png" id="8_iar7s"]
 [ext_resource type="FontFile" uid="uid://buuk2nfstr30k" path="res://UI/Fonts/NanumGothicCoding-Bold.ttf" id="11_praht"]
 [ext_resource type="Script" path="res://2dTraumaComponent.gd" id="11_vjt44"]
+[ext_resource type="Script" path="res://pause_handler.gd" id="13_e2f1c"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_t61l8"]
 shader = ExtResource("3_018yw")
@@ -965,5 +966,32 @@ text = "LUCIFER"
 
 [node name="ScreenShake" type="Node" parent="."]
 script = ExtResource("11_vjt44")
+
+[node name="Pause" type="ColorRect" parent="."]
+visible = false
+z_index = 5
+offset_right = 720.0
+offset_bottom = 840.0
+color = Color(0, 0, 0, 0.803922)
+metadata/_edit_group_ = true
+metadata/_edit_lock_ = true
+
+[node name="Label" type="Label" parent="Pause"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/outline_size = 16
+theme_override_fonts/font = ExtResource("11_praht")
+theme_override_font_sizes/font_size = 30
+text = "Game Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PauseHandler" type="Node" parent="."]
+process_mode = 3
+script = ExtResource("13_e2f1c")
 
 [editable path="BackgroundViewport/SubViewport/PillarEnvironment"]

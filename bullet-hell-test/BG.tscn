@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://b3b6nsf46dsif"]
+
+[node name="Bg" type="ColorRect"]
+z_index = -2
+offset_right = 1200.0
+offset_bottom = 900.0
+color = Color(0, 0, 0, 1)
+metadata/_edit_lock_ = true

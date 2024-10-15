@@ -12,9 +12,17 @@ const SOUND_EFFECT_FOLDER = "res://Audio/Sound/"
 var sound_queue = []
 var next_sound = 0
 
+var sound_timeouts: Dictionary = {
+	"EnemyFire": 0.0,
+	"PlayerFire": 0.0
+}
 
 func _ready():
 	_init_stream_players()
+
+func _physics_process(delta: float) -> void:
+	sound_timeouts["EnemyFire"] = move_toward(sound_timeouts["EnemyFire"], 0.0, delta)
+	sound_timeouts["PlayerFire"] = move_toward(sound_timeouts["PlayerFire"], 0.0, delta)
 
 func _init_stream_players():
 	for i in range(QUEUE_SIZE):
@@ -28,6 +36,11 @@ func _get_next_index():
 	return next
 
 func sound_effect(sound_name: String, volume: float = 1.0, pitch: float = 1.0, menu_audio: bool = false):
+	if sound_timeouts.has(sound_name):
+		if sound_timeouts[sound_name] > 0:
+			return
+		else:
+			sound_timeouts[sound_name] = 0.1
 	var sound_effect_path = SOUND_EFFECT_FOLDER + sound_name + ".wav"
 	#assert(FileAccess.file_exists(sound_effect_path), "Sound file not found.")
 	play_se(load(sound_effect_path), volume, menu_audio, pitch)

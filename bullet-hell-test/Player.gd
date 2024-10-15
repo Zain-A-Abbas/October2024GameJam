@@ -74,17 +74,19 @@ func activate_bomb_safety():
 func shoot():
 	if bullet_cooldown:
 		return
+
+	SE.sound_effect("PlayerFire", 0.2)
 	match level:
 		1:
-			bullet_manager.spawn_bullet(shoot_position(), PLAYER_BULLET, {"rotation": -PI/2})
+			bullet_manager.spawn_bullet(shoot_position(), PLAYER_BULLET, {"rotation": -PI/2}, false)
 		2:
-			bullet_manager.spawn_bullet(shoot_position() + Vector2(-10, 0), PLAYER_BULLET, {"rotation": -PI/2})
-			bullet_manager.spawn_bullet(shoot_position() + Vector2(10, 0), PLAYER_BULLET, {"rotation": -PI/2})
+			bullet_manager.spawn_bullet(shoot_position() + Vector2(-10, 0), PLAYER_BULLET, {"rotation": -PI/2}, false)
+			bullet_manager.spawn_bullet(shoot_position() + Vector2(10, 0), PLAYER_BULLET, {"rotation": -PI/2}, false)
 		3:
-			bullet_manager.spawn_bullet(shoot_position() + Vector2(-30, -10), PLAYER_BULLET, {"rotation": -PI/2})
-			bullet_manager.spawn_bullet(shoot_position() + Vector2(-10, 0), PLAYER_BULLET, {"rotation": -PI/2})
-			bullet_manager.spawn_bullet(shoot_position() + Vector2(10, 0), PLAYER_BULLET, {"rotation": -PI/2})
-			bullet_manager.spawn_bullet(shoot_position() + Vector2(30, -10), PLAYER_BULLET, {"rotation": -PI/2})
+			bullet_manager.spawn_bullet(shoot_position() + Vector2(-30, -10), PLAYER_BULLET, {"rotation": -PI/2}, false)
+			bullet_manager.spawn_bullet(shoot_position() + Vector2(-10, 0), PLAYER_BULLET, {"rotation": -PI/2}, false)
+			bullet_manager.spawn_bullet(shoot_position() + Vector2(10, 0), PLAYER_BULLET, {"rotation": -PI/2}, false)
+			bullet_manager.spawn_bullet(shoot_position() + Vector2(30, -10), PLAYER_BULLET, {"rotation": -PI/2}, false)
 	bullet_cooldown = true
 
 func shoot_position() -> Vector2:

@@ -15,13 +15,16 @@ static var bombs: int = 0
 static var life: int = 3
 static var player: Player
 
-static var run_seconds: int = 0
+static var run_seconds: float = 0
 static var run_ms: int = 0
 var counting_time: bool = false
 
 func _ready() -> void:
 	EventBus.lose_life.connect(lose_life)
 	EventBus.win.connect(game_win)
+	points = 0
+	bombs = 0
+	life = 3
 	ui.time_text(0)
 	fade_1.visible = true
 	fade_2.visible = true
@@ -41,8 +44,8 @@ func _physics_process(delta: float) -> void:
 	if !ui:
 		return
 	if counting_time:
-		run_ms = Time.get_ticks_msec()
-		run_seconds = run_ms / 1000
+		run_seconds += delta
+		run_ms = run_seconds * 1000
 		ui.time_text(run_ms)
 
 func lose_life():
@@ -55,7 +58,7 @@ func lose_life():
 		SE.sound_effect("Bomb")
 		game_over.visible = true
 		await Util.timer(3.0)
-		get_tree().change_scene_to_packed(INTRO_TITLE.duplicate())
+		get_tree().change_scene_to_packed(load("res://IntroTitle.tscn"))
 
 static func gain_bomb():
 	bombs += 1
@@ -73,4 +76,4 @@ func game_win():
 	await win_tween.finished
 	await Util.timer(10.0)
 	
-	get_tree().change_scene_to_packed(INTRO_TITLE.duplicate())
+	get_tree().change_scene_to_packed(load("res://IntroTitle.tscn"))

@@ -34,5 +34,5 @@ func enemy_process(delta: float):
 			is_cooldown = true
 			bullet_cooldown = 0
 			for i in BULLET_COUNT:
-				bullet_manager.spawn_bullet(position, SIGN_BULLET, {"speed_mod": randf_range(0.7, 1.3), "rotation": position.angle_to_point(player.position) * randf_range(0.8, 1.2)})
+				bullet_manager.spawn_bullet(position, SIGN_BULLET, {"speed_mod": randf_range(0.5, 1.0), "rotation": position.angle_to_point(player.position) * randf_range(0.8, 1.2)})
 				await Util.timer(0.075)

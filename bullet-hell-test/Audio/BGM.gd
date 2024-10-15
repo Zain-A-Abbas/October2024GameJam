@@ -58,7 +58,7 @@ var bgm_player: BackgroundMusic
 
 
 func load_bgm(track: String):
-	var queue_bgm = load("res://Audio/Music/" + str(track) + ".wav")
+	var queue_bgm = load("res://Audio/Music/" + str(track) + ".ogg")
 	loaded_bgm.push_front(queue_bgm)
 	current_bgm = loaded_bgm[0]
 
